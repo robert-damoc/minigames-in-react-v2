@@ -1,0 +1,18 @@
+.controlButtons {
+  margin-top: 10px;
+  text-align: center;
+
+  .row {
+    justify-content: space-evenly;
+
+    div {
+      text-align: center;
+
+      button {
+        &:focus, &:active {
+          box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ class TopMenu extends Component {
     return (
       <div className="header">
         <Link to="/">Home</Link>
+        <Link to="/tic-tac-toe">TicTacToe</Link>
       </div>
     );
   }
