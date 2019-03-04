@@ -23,19 +23,20 @@ export default class Board extends Component {
     }
   }
 
-  getLocalSquares = () => {
+  getAllSquares = () => {
     return this.squares.map((row) => {
       return row.map(square => square.current.getValue());
     });
   }
 
-  resetSquares = (value) => {
+  resetSquares = (value, classNames = [], callBack) => {
     this.squares.forEach((row) => {
       row.forEach(square => {
-        square.current.setClassNames([]);
+        square.current.setClassNames(classNames);
         square.current.setValue(value);
       });
     });
+    this.squares[0][0].current.setValue(value, callBack);
   }
 
   setStatusValue = (status) => {
@@ -46,8 +47,8 @@ export default class Board extends Component {
     return this.squares[row][col].current.getValue();
   }
 
-  setSquareValue = (row, col, value) => {
-    this.squares[row][col].current.setValue(value);
+  setSquareValue = (row, col, value, callBack) => {
+    this.squares[row][col].current.setValue(value, callBack);
   }
 
   setSquareClassNames = (row, col, classNames) => {
@@ -89,9 +90,12 @@ export default class Board extends Component {
 
   renderButtons = () => {
     return this.controlButtons().map((button, i) => (
-      <div className={button.classes} key={'controlButton-' + i}>
-        <Button text={button.text} onClick={button.onClick} />
-      </div>
+      <Button
+        text={button.text}
+        onClick={button.onClick}
+        classes={button.classes}
+        key={'controlButton-' + i}
+      />
     ));
   }
 
@@ -104,7 +108,7 @@ export default class Board extends Component {
           {this.renderSquares()}
         </div>
 
-        <div className="container controlButtons">
+        <div className="container controlButtons d-flex justify-content-center mt-2">
           {this.renderButtons()}
         </div>
       </div>
