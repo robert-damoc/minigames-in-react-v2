@@ -12,36 +12,6 @@ export default class TicTacToeBoard extends Board {
     this.updateStatus();
   }
 
-  controlButtons = () => {
-    return ([{
-      classes: 'play-again',
-      text: 'Play Again!',
-      onClick: this.playAgain,
-    }]);
-  }
-
-  handleSquareClick = (row, col) => {
-    if (this.gameOver || this.getSquareValue(row, col)) { return; }
-
-    this.setSquareValue(row, col, this.players[this.currentPlayerIndex]);
-    this.setSquareClassNames(row, col, ['used']);
-
-    if (this.gameIsOver(row, col)) {
-      this.gameOver = true;
-    } else {
-      this.currentPlayerIndex = 1 - this.currentPlayerIndex;
-    }
-
-    this.updateStatus();
-  }
-
-  playAgain = () => {
-    this.currentPlayerIndex = Utils.randomInt(0, 1);
-    this.gameOver = false;
-    this.updateStatus();
-    this.resetSquares(null);
-  }
-
   updateStatus = () => {
     let newStatus = '';
 
@@ -58,15 +28,44 @@ export default class TicTacToeBoard extends Board {
     this.setStatusValue(newStatus);
   }
 
+  controlButtons = () => {
+    return ([{
+      classes: 'play-again',
+      text: 'Play Again!',
+      onClick: this.playAgain,
+    }]);
+  }
+
+  handleSquareClick = (row, col) => {
+    if (this.gameOver || this.getSquareValue(row, col)) { return; }
+
+    this.setSquareClassNames(row, col, ['used']);
+    this.setSquareValue(row, col, this.players[this.currentPlayerIndex], () => {
+      if (this.gameIsOver()) {
+        this.gameOver = true;
+      } else {
+        this.currentPlayerIndex = 1 - this.currentPlayerIndex;
+      }
+
+      this.updateStatus();
+    });
+  }
+
+  playAgain = () => {
+    this.currentPlayerIndex = Utils.randomInt(0, 1);
+    this.gameOver = false;
+    this.updateStatus();
+    this.resetSquares(null);
+  }
+
   markWinningSquares = (winningSquaresIndices) => {
     winningSquaresIndices.forEach(pair => {
       this.setSquareClassNames(pair[0], pair[1], ['marked']);
     })
   }
 
-  gameIsOver = (row, col) => {
-    let squares = this.getLocalSquares();
-    squares[row][col] = this.players[this.currentPlayerIndex];
+  gameIsOver = () => {
+    let squares = this.getAllSquares();
 
     if (squares.every(row => row.every(square => !!square))) {
       this.currentPlayerIndex = null;

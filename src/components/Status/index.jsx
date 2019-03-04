@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './Status.scss';
-
 export default class Status extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +12,7 @@ export default class Status extends Component {
 
   render() {
     return (
-      <div className="container status text-center">
+      <div className="container status text-center my-2">
         {this.state.value}
       </div>
     );

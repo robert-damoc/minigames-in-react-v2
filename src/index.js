@@ -8,6 +8,7 @@ import './index.scss'
 import TopMenu from './screens/TopMenu'
 import Home from './screens/Home'
 import TicTacToe from './screens/TicTacToe'
+import GameOfLife from './screens/GameOfLife'
 import NotFound from './screens/NotFound'
 
 const routing = (
@@ -17,6 +18,7 @@ const routing = (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/tic-tac-toe" component={TicTacToe} />
+        <Route path="/game-of-life" component={GameOfLife} />
         <Route component={NotFound} />
       </Switch>
     </div>

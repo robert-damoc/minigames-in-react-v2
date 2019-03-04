@@ -8,8 +8,8 @@ export default class Square extends Component {
     this.state = { value: null, classNames: [] };
   }
 
-  setValue = (value) => {
-    this.setState({ value: value });
+  setValue = (value, callBack = () => {}) => {
+    this.setState({ value: value }, callBack);
   }
 
   getValue = () => {
