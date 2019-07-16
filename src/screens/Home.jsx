@@ -5,6 +5,7 @@ class Home extends Component {
     return (
       <div>
         <h1>Learn by Playing!</h1>
+        <h2> I am awesome </h2>
         <p>
           I think the best way of learning something new is by practicing;
           and what better way to practice if not by playing and having fun!
